@@ -17,7 +17,7 @@ num_entradas_vendidas_infantiles = 0
 while True:
     opcion = input(f"""
     ========== TAQUILLA DE CINE ==========
-    1. Vender entradas
+    1. Comprar entradas
     2. Consultar resumen de ventas
     3. Salir
     4. Reiniciar estadisticas
