@@ -1,5 +1,5 @@
 # Proyecto: Taquilla de cine
-# Autores: completar con los nombres de los dos integrantes
+# Autores: Alejandro Sanz y Paulo Gomez
 
 # Estas variables se ponen aqui porque se usan en todo el programa.
 # Tambien sirven para mostrar el resumen aunque se consulte antes de vender.
@@ -37,18 +37,21 @@ while True:
             print("Error: la edad no puede ser negativa.")
             continue
 
-        try:
+        
             while True:
-                num_entradas = int(input("Ingrese el numero de entradas a comprar: "))
+                try:
+                    num_entradas = int(input("Ingrese el numero de entradas a comprar: "))
+                
+                except ValueError:
+                    print("Error: el numero de entradas debe ser un numero entero.")
+                    continue
                 if num_entradas <= 0:
                     print("Error: el numero de entradas debe ser mayor que cero.")
                 elif num_entradas > 10:
                     print("Error: no se pueden comprar mas de diez entradas.")
                 else:
                     break
-        except ValueError:
-            print("Error: el numero de entradas debe ser un numero entero.")
-            continue
+        
 
         # PARTE OPCIONAL
         # Preguntar si el cliente tiene carnet de estudiante.
