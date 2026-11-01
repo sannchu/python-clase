@@ -1,3 +1,4 @@
+
 # Proyecto: Taquilla de cine
 # Autores: Alejandro Sanz y Paulo Gomez
 
@@ -14,8 +15,9 @@ num_entradas_vendidas_menores = 0
 num_entradas_vendidas_senior = 0
 num_entradas_vendidas_infantiles = 0
 
+# Mantenemos el programa en funcionamiento hasta que el usuario decida salir.
 while True:
-    opcion = input(f"""
+    opcion = input("""
     ========== TAQUILLA DE CINE ==========
     1. Comprar entradas
     2. Consultar resumen de ventas
@@ -27,35 +29,38 @@ while True:
         # Pedimos los datos del cliente y controlamos que sean correctos.
         nombre = input("Ingrese el nombre del cliente: ")
 
+        # Comprobamos que la edad sea un numero entero.
         try:
             edad = int(input("Ingrese la edad del cliente: "))
         except ValueError:
             print("Error: debes introducir una edad entera.")
             continue
 
+        # No permitimos edades negativas.
         if edad < 0:
             print("Error: la edad no puede ser negativa.")
             continue
 
-        
-            while True:
-                try:
-                    num_entradas = int(input("Ingrese el numero de entradas a comprar: "))
-                
-                except ValueError:
-                    print("Error: el numero de entradas debe ser un numero entero.")
-                    continue
-                if num_entradas <= 0:
-                    print("Error: el numero de entradas debe ser mayor que cero.")
-                elif num_entradas > 10:
-                    print("Error: no se pueden comprar mas de diez entradas.")
-                else:
-                    break
-        
+        # Pedimos el numero de entradas hasta que sea correcto.
+        while True:
+            try:
+                num_entradas = int(input("Ingrese el numero de entradas a comprar: "))
+
+            except ValueError:
+                print("Error: el numero de entradas debe ser un numero entero.")
+                continue
+
+            # Comprobamos que se compren entre 1 y 10 entradas.
+            if num_entradas <= 0:
+                print("Error: el numero de entradas debe ser mayor que cero.")
+            elif num_entradas > 10:
+                print("Error: no se pueden comprar mas de diez entradas.")
+            else:
+                break
 
         # PARTE OPCIONAL
         # Preguntar si el cliente tiene carnet de estudiante.
-        carnet_estudiante = input("¿El cliente tiene carnet de estudiante? (s/n): ")
+        carnet_estudiante = input("¿El cliente tiene carnet de estudiante? (s/n): ").strip().lower()
 
         # Segun la edad, elegimos el tipo de entrada y su precio.
         # Por defecto, el cliente tiene una entrada general.
@@ -77,7 +82,11 @@ while True:
         if num_entradas >= 5:
             precio_entrada *= 0.9
 
+        # Calculamos el total de la compra multiplicando el precio por las entradas.
         total_compra = num_entradas * precio_entrada
+
+        # Preparamos el ticket con los datos de la compra.
+        # Los precios se muestran con dos decimales.
         mensaje_ticket = f"""
             ========== TICKET ==========
             Cliente: {nombre}
@@ -105,10 +114,14 @@ while True:
                 num_entradas_vendidas_infantiles += num_entradas
 
             # Actualizar el numero de operaciones, entradas y dinero recaudado.
+            # Solo se suman las ventas cuando el cliente confirma la compra.
             num_operaciones_realizadas += 1
             num_entradas_vendidas += num_entradas
             total_recaudado += total_compra
+
+            # Mostramos el ticket de la compra realizada.
             print(mensaje_ticket)
+
         elif validar_compra == "n":
             print("Compra cancelada.")
         else:
@@ -117,6 +130,7 @@ while True:
     elif opcion == "2":
         # PARTE OPCIONAL
         # Calcular la recaudacion media, comprobando que haya alguna venta.
+        # Asi evitamos dividir entre cero cuando no se han realizado operaciones.
         if num_operaciones_realizadas == 0:
             recaudacion_media = 0.0
         else:
@@ -139,6 +153,7 @@ while True:
         print(mensaje_resumen)
 
     elif opcion == "3":
+        # Finalizamos el programa con break para salir del bucle principal.
         print("Programa finalizado. Gracias por utilizar la taquilla.")
         break
 
@@ -152,7 +167,9 @@ while True:
         num_entradas_vendidas_menores = 0
         num_entradas_vendidas_senior = 0
         num_entradas_vendidas_infantiles = 0
+
         print("Estadisticas reiniciadas.")
 
     else:
+        # Si el usuario introduce una opcion incorrecta, volvemos al menu.
         print("Opcion no valida. Selecciona una opcion del 1 al 4.")
